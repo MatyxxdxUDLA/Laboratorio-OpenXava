@@ -1,0 +1,15 @@
+/*C2*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C3*/SET SCHEMA PUBLIC
+create table Categoria (oid varchar(32) not null, descripcion varchar(50), primary key (oid))
+alter table Cliente add column codigoPostal integer
+alter table Cliente add column municipio varchar(20)
+alter table Cliente add column provincia varchar(30)
+alter table Cliente add column viaPublica varchar(30)
+create table Factura (oid varchar(32) not null, anyo integer, fecha date, numero integer, observaciones varchar(255), cliente_numero integer not null, primary key (oid))
+create table Factura_detalles (Factura_oid varchar(32) not null, cantidad integer not null, producto_numero integer)
+create table Producto (numero integer not null, descripcion varchar(50), fotos varchar(32), observaciones varchar(255), precio numeric(19,2), categoria_oid varchar(32), primary key (numero))
+alter table Factura add constraint FKmd10sg74xw8mq3d2m9k2kxual foreign key (cliente_numero) references Cliente
+alter table Factura_detalles add constraint FKe3f314u9v7uw8aktwkjo8473t foreign key (producto_numero) references Producto
+alter table Factura_detalles add constraint FKpl16p1cpo7r84s75asx5db9nq foreign key (Factura_oid) references Factura
+alter table Producto add constraint FKc81rcy0vfdn5ewnap5scabhd3 foreign key (categoria_oid) references Categoria

@@ -1,0 +1,18 @@
+# Archivos de compilación
+build/
+target/
+*.class
+*.jar
+*.war
+
+# Archivos de IDE
+.settings/
+.project
+.classpath
+*.launch
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de OpenXava específicos
