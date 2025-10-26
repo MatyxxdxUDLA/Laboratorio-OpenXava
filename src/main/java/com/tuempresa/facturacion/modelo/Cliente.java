@@ -8,6 +8,9 @@ import lombok.*;
 
 @Entity  // Esto marca la clase Cliente como una entidad
 @Getter @Setter // Esto hace los campos a continuación públicamente accesibles
+@View(name="Simple",
+members="numero, nombre" 
+)
 public class Cliente {
 	@Id  // La propiedad numero es la clave.  Las claves son obligatorias (required) por defecto
     @Column(length=6)  // La longitud de columna se usa a nivel UI y a nivel DB

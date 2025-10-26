@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
+    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0">
+
+    <persistence-unit name="default">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!-- Usar el DataSource de Tomcat configurado en context.xml -->
+        <jta-data-source>java://comp/env/jdbc/facturacionDS</jta-data-source>
+        
+        <properties>
+            <!-- Dialecto para MySQL -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            
+            <!-- Estrategia de generación de DDL -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            
+            <!-- Mostrar SQL en logs (opcional, para desarrollo) -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            
+            <!-- Codificación UTF-8 -->
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+            <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
+            <property name="hibernate.connection.useUnicode" value="true"/>
+        </properties>
+    </persistence-unit>
+    
+</persistence>
