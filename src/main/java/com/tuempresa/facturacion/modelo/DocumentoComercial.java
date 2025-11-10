@@ -12,7 +12,7 @@ import com.tuempresa.facturacion.calculadores.*;
 
 import lombok.*;
  
-@Entity @Getter @Setter
+@MappedSuperclass @Getter @Setter
 @View(members=
 "anyo, numero, fecha," +
 "datos {" +
@@ -24,7 +24,7 @@ import lombok.*;
 abstract public class DocumentoComercial extends Identificable {
  
     @Column(length=4)
-    @DefaultValueCalculator(CurrentYearCalculator.class) // Año actual
+    @DefaultValueCalculator(CurrentYearCalculator.class) // Aï¿½o actual
     int anyo;
  
     @Column(length=6)
@@ -46,6 +46,6 @@ abstract public class DocumentoComercial extends Identificable {
     Cliente cliente;
     
     @ElementCollection
-    @ListProperties("producto.numero, producto.descripcion, cantidad")
+    @ListProperties("producto.numero, producto.descripcion, cantidad, importe")
     Collection<Detalle> detalles;
 }

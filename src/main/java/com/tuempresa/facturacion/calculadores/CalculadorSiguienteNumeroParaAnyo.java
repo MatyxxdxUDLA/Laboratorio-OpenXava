@@ -11,13 +11,30 @@ public class CalculadorSiguienteNumeroParaAnyo
     implements ICalculator { // Un calculador tiene que implementar ICalculator
  
     @Getter @Setter     
-    int anyo; // Este valor se inyectar· antes de calcular
+    int anyo; // Este valor se inyectar antes de calcular
  
-    public Object calculate() throws Exception { // Hace el c·lculo
-        Query query = XPersistence.getManager() // Una consulta JPA
-            .createQuery("select max(f.numero) from DocumentoComercial f where f.anyo = :anyo"); // La consulta devuelve
-        query.setParameter("anyo", anyo);
-        Integer ultimoNumero = (Integer) query.getSingleResult();
+    public Object calculate() throws Exception { // Hace el clculo
+        // Consultamos Factura y Pedido por separado ya que DocumentoComercial es @MappedSuperclass
+        Query queryFactura = XPersistence.getManager()
+            .createQuery("select max(f.numero) from Factura f where f.anyo = :anyo");
+        queryFactura.setParameter("anyo", anyo);
+        Integer ultimoNumeroFactura = (Integer) queryFactura.getSingleResult();
+        
+        Query queryPedido = XPersistence.getManager()
+            .createQuery("select max(p.numero) from Pedido p where p.anyo = :anyo");
+        queryPedido.setParameter("anyo", anyo);
+        Integer ultimoNumeroPedido = (Integer) queryPedido.getSingleResult();
+        
+        // Tomamos el m√°ximo entre ambos
+        Integer ultimoNumero = null;
+        if (ultimoNumeroFactura != null && ultimoNumeroPedido != null) {
+            ultimoNumero = Math.max(ultimoNumeroFactura, ultimoNumeroPedido);
+        } else if (ultimoNumeroFactura != null) {
+            ultimoNumero = ultimoNumeroFactura;
+        } else if (ultimoNumeroPedido != null) {
+            ultimoNumero = ultimoNumeroPedido;
+        }
+        
         return ultimoNumero == null ? 1 : ultimoNumero + 1;
     }
  
