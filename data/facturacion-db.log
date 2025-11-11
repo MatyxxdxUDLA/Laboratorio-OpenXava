@@ -1,0 +1,9 @@
+/*C3*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+alter table Factura add column importeTotal numeric(19,2)
+alter table Factura add column iva numeric(19,2)
+alter table Factura add column porcentajeIVA numeric(2,0)
+alter table Pedido add column importeTotal numeric(19,2)
+alter table Pedido add column iva numeric(19,2)
+alter table Pedido add column porcentajeIVA numeric(2,0)
